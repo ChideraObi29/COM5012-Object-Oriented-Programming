@@ -1,0 +1,17 @@
+Functional Requirements
+-	log in
+-	Search for books by title or author and see available ones
+-	View borrowing information
+-	Borrow & return books
+-	Hold borrowed books (Once a book is returned, it goes to the next member that has preserved that book). If 3 days have passed, the system will count as an expire preservation and put the book back to the shelf/catalogue.
+-	Update, add or remove books
+-	 Show overdue books
+-	Generate reports
+-	Notifications for members
+-	Setting up maximum book a member can borrow (5)
+
+Non-functional Requirements
+-	The procedure of borrowing, reserving and returning books should be quick.
+-	The interface of the application should be easy to navigate.
+-	All members must be able to log in with their chosen password.
+-	The system should be usable most times and not crash when handling many inputs by members.
