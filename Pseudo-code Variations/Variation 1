@@ -1,0 +1,8 @@
+I have created a simple pseudo-code for the Users class
+
+START CLASS "Users"
+       name: text
+       password: text
+       id: number 
+
+END CLASSS
