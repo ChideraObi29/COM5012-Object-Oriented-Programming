@@ -1,0 +1,24 @@
+For now I have created 2 classes (Users and Members), which members inherits the 3 attributes from Users which are name, password and id.
+I have also created a member object and applied the attributes for that object.
+
+- THE CODE -
+#include <iostream>
+using namespace std;
+
+class Users{
+    public:
+    string name;
+    string password;
+    int id;
+};
+
+class Members: public Users{
+};
+
+int main(){
+Members member1;
+
+member1.name = "Mike";
+member1.password = "Pword123";
+member1.id = 1234;
+}
