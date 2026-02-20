@@ -1,0 +1,27 @@
+I created a basic starter code for the login sytem. 
+
+#include <iostream>
+using namespace std;
+
+class Users{
+private:
+	string name;
+	string password;
+	int id;
+public:
+	void Login() {
+		cout << "Enter name ";
+		cin >> name;
+		cout << "Enter password ";
+		cin >> password;
+		cout << "Enter ID ";
+		cin >> id;
+	}
+};
+
+int main()
+{
+	Users user;
+	user.Login();
+	return 0;
+}
