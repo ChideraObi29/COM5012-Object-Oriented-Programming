@@ -11,11 +11,11 @@ class Users{
     int id;
 };
 
-class Memebers: public Users{
+class Members: public Users{
 };
 
 int main(){
-Memebers member1;
+Members member1;
 
 member1.name = "Mike";
 member1.password = "Pword123";
