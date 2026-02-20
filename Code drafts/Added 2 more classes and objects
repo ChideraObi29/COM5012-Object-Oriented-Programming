@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+class Users{
+    public:
+    string name;
+    string password;
+    int id;
+};
+
+class Members: public Users{
+};
+
+class Librarians: public Users{
+};
+
+class Administrators: public Users{
+};
+
+int main(){
+Members member1;
+
+member1.name = "Mike";
+member1.password = "Pword123";
+member1.id = 1234;
+
+Librarians librarian1;
+
+librarian1.name = "Sarah";
+librarian1.password = "Pword321";
+librarian1.id = 4321;
+
+Administrators admin1;
+
+admin1.name = "Jake";
+admin1.password = "Pword67";
+admin1.id = 6789;
+}
