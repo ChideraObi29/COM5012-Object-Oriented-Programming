@@ -5,4 +5,13 @@ START CLASS "Users"
        password: text
        id: number 
 
-END CLASSS
+END CLASS
+
+START CLASS "Member"
+END CLASS
+
+START CLASS "Librarians"
+END CLASS
+
+START CLASS "Administrators 
+END CLASS
