@@ -1,0 +1,30 @@
+Using W3Schools, I have learnt how to turn a public class to private. These code uses 3 more functions that I have not planned to use during my desgning process for the class.
+
+- THE CODE - 
+
+#include <iostream>
+using namespace std;
+
+class Users {
+private:
+	string name;
+	string password;
+	int id;
+
+public:
+	void setLogin(string n, string p, int i) {
+		name = n;
+		password = p;
+		id = i;
+	}
+	string getLogin() {
+		return name, password;
+	}
+	int getLoginid() {
+		return id;
+	}
+};
+
+int main() {
+
+}
