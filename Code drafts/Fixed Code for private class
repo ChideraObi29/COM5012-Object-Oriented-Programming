@@ -1,4 +1,4 @@
-I added member object and print option to check that everthing displays as name, password and id.
+I added member object and print option to check that everthing displays as name.
 Now I can do the same for the admins and librarians and simulating the login process.
 
 #include <iostream>
