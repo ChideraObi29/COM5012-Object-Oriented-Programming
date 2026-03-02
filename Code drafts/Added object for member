@@ -1,0 +1,36 @@
+I added member object and print option to check that everthing displays as name, password and id.
+Now I can do the same for the admins and librarians and simulating the login process.
+
+#include <iostream>
+using namespace std;
+
+class Users {
+private:
+string name;
+string password;
+int id;
+
+public:
+void setLogin(string n, string p, int i) {
+name = n;
+password = p;
+id = i;
+}
+string getLogin() {
+return name;
+}
+int getLoginid() {
+return id;
+}
+};
+
+class Members : public Users {};
+class Librarians : public Users {};
+class Administrators : public Users {};
+
+int main() {
+Members member1;
+member1.setLogin("Henry","Pword29",1234);
+
+cout << member1.getLogin();
+}
