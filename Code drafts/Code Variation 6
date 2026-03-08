@@ -1,0 +1,108 @@
+Class Diagram Changes
+1. The class Users is private and to get those values to print I had to create a new function "setLogin" to print those values (name and password).
+2. Change id of books from string to int because they are going to be digits.
+
+ON THE CODE
+- I added objects for librarians and administrators. 
+- I removed the ID for the logging system and I would add it back later. It would be used as a backup in case users forget their passwords.
+- Created a simple login system.
+- I added a class for books.
+- Created 6 book as objects.
+
+-------------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+class Users { // Users class
+private:
+string name;
+string password;
+
+public:
+void setLogin(string n, string p) {
+name = n;
+password = p;
+}
+
+public:
+bool Login(string n, string p){ //Login function
+    return (n == name && p == password);
+}
+};
+
+//Inheritance classes
+class Members : public Users {};
+class Librarians : public Users {};
+class Administrators : public Users {};
+
+class Books{ //Book Class
+    public:
+    string title;
+    int id;
+    string status;
+};
+
+int main() {
+Members member1;
+member1.setLogin("Henry","Pword29"); //Member User
+
+Librarians librarian1;
+librarian1.setLogin("Mike","Pword123");//Librarin User
+
+Administrators admin1;
+admin1.setLogin("Paul","Pword321");// Aministrator User
+
+//Library books 
+
+Books book1;
+book1.title = "Book1";
+book1.id = 1;
+book1.status = "Available";
+
+Books book2;
+book2.title = "Book2";
+book2.id = 2;
+book2.status = "Available";
+
+Books book3;
+book3.title = "Book3";
+book3.id = 3;
+book3.status = "Available";
+
+Books book4;
+book4.title = "Book4";
+book4.id = 4;
+book4.status = "Available";
+
+Books book5;
+book5.title = "Book5";
+book5.id = 5;
+book5.status = "Available";
+
+Books book6;
+book6.title = "Book1";
+book6.id = 6;
+book6.status = "Available";
+
+// The start of login procedure
+
+string name, pass;
+cout <<"Enter Account Name ";
+cin >> name;
+
+cout <<"Enter Account Password ";
+cin >> pass;
+
+if (member1.Login(name, pass))
+cout <<"You are logged in as Memeber";
+
+else if(librarian1.Login(name, pass))
+cout <<"You are logged in as Librarian";
+
+else if(admin1.Login(name, pass))
+cout <<"You are logged in as Librarian";
+
+else
+cout <<"Login Unsuccessful"; //Fail login attempt if input don't macth save data
+}
