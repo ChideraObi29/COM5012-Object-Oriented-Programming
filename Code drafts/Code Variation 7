@@ -1,0 +1,187 @@
+Class Diagram Changes
+- Added memberInterface function.
+- Added getBook()
+- Added showBooks() replacing searchBook for clarity
+
+ON THE CODE
+- I added a function called memberInterface(). This function allows members to interact with the system options quickly than having more extra function that I have originally planned in my design.
+- I added the getBook() function to get the list of all objects in the class book.
+- Fixed spelling errors
+- Added a while loop for preventing the program to crash if it runs out of memory.
+- I added showBooks to print them books on the terminal.
+- I added more methods, (empty ones).
+
+
+#include <iostream>
+using namespace std;
+
+class Users { //Users class
+private:
+string name;
+string password;
+
+public:
+void setLogin(string n, string p) {
+name = n;
+password = p;
+}
+
+public:
+bool Login(string n, string p){ //Login function
+    return (n == name && p == password);
+}
+};
+
+//Inheritance classes
+class Members : public Users {
+    void borrowBook(){}
+    void returnBook(){}
+    void reserveBook(){}
+    void viewMessages(){}
+};
+
+class Librarians : public Users {
+    void addBook(){}
+    void removeBook(){}
+    void updateBook(){}
+    void addReport(){}
+};
+
+class Administrators : public Users {
+    void changeBorrowLimit(){}
+
+};
+
+class Books{ //Book Class
+    public:
+    string title;
+    int id;
+    string status;
+
+    public:
+   void getBook(string t, int i, string s){
+    title = t;
+    id = i;
+    status = s;
+   }
+
+   public:
+      void showBook(){
+    cout << "Book Title: " << title << endl;
+    cout << "Book ID: " << id << endl;
+    cout << "Book Status: " << status << endl;
+    cout << "-----------------" << endl; //for space
+}
+};
+
+void memberInterface(Books book1, Books book2, Books book3, Books book4, Books book5, Books book6){ //For Members Only  
+
+int optionNumber = 0;
+
+while(optionNumber !=8){
+
+cout <<"" << endl; //Space bettween senteces
+cout <<"Library App Options" << endl;
+cout <<"1. View Books" << endl;
+cout <<"2. Borrow books" << endl;
+cout <<"3. Return books" << endl;
+cout <<"4. Reserve books" << endl;
+cout <<"5. View notifications" << endl;
+cout <<"6. View Messages" << endl;
+cout <<"7. View Book" << endl;
+cout <<"8. Logout" << endl;
+cout <<"" << endl;
+
+cout <<"Select an option ";
+cin >> optionNumber;
+
+if (optionNumber == 1){
+    book1.showBook();
+    book2.showBook();
+    book3.showBook();
+    book4.showBook();
+    book5.showBook();
+    book6.showBook();
+}
+
+else if (optionNumber == 2)
+cout <<"You have chosen 2";
+
+else if (optionNumber == 3)
+cout <<"You have chosen 3";
+
+else if (optionNumber == 4)
+cout <<"You have chosen 3";
+
+else if (optionNumber == 5)
+cout <<"You have chosen 5";
+
+else if (optionNumber == 6)
+cout <<"You have chosen 6";
+
+else if (optionNumber == 7)
+cout <<"You have chosen 7";
+
+else if (optionNumber == 8)
+cout <<"You have chosen 8";
+
+
+else
+cout <<"Invalid input" << endl;
+cout <<"" << endl;
+
+}
+}
+
+void librarianInterface(){} //For Librarians Only
+void administratorsInterface(){} //For Admins Only
+
+int main() {
+Members member1;
+member1.setLogin("Henry","Pword29"); //Member User
+
+Librarians librarian1;
+librarian1.setLogin("Mike","Pword123");//Librarin User
+
+Administrators admin1;
+admin1.setLogin("Paul","Pword321");//Administrator User
+
+//Library books 
+Books book1;
+book1.getBook("Book1", 1, "Available");
+
+Books book2;
+book2.getBook("Book2", 2, "Available");
+
+Books book3;
+book3.getBook("Book3", 3, "Available");
+
+Books book4;
+book4.getBook("Book4", 4, "Available");
+
+Books book5;
+book5.getBook("Book5", 5, "Available");
+
+Books book6;
+book6.getBook("Book6", 6, "Available");
+
+//The start of login procedure
+string name, pass;
+cout <<"Enter Account Name ";
+cin >> name;
+
+cout <<"Enter Account Password ";
+cin >> pass;
+
+if (member1.Login(name, pass))
+memberInterface(book1, book2, book3, book4, book5, book6);
+
+else if(librarian1.Login(name, pass))
+cout <<"You are logged in as Librarian";
+
+else if(admin1.Login(name, pass))
+cout <<"You are logged in as Admin";
+
+else
+cout <<"Login Unsuccessful"; //Fail login attempt if input don't macth save data
+}
