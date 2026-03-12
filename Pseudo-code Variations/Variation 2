@@ -1,0 +1,61 @@
+START CLASS "Users"
+       name: text
+       password: text
+	   
+	   FUNCTION setLogin(n,p)
+	       save n as the name
+		   save p as the password
+		END FUNCTION
+END CLASS
+
+START CLASS "Members"
+      FUNCTION borrowBook()
+      FUNCTION returnBook()
+      FUNCTION reserveBook()
+      FUNCTION viewMessages()
+END CLASS
+
+START CLASS "Librarians"
+      FUNCTION addBook()
+      FUNCTION removeBook()
+      FUNCTION updateBook()
+      FUNCTION addReport()
+END CLASS
+
+START CLASS "Administrators" 
+      FUNCTION changeBorrowLimit()
+END CLASS
+
+START CLASS "BOOKS"
+      save title
+	  save id
+	  save status
+	  FUNCTION getBook()
+	  FUNCTION showBook()
+END CLASS 
+
+Create 6 books
+
+Ask user for username 
+ask user for password
+
+IF Login = Member then 
+   show Member Options
+        viewBooks()
+        borrowBook()
+        returnBook()
+        reserveBook()
+		
+ElSE IF Login = Librarians
+show Librarian Options
+     addBook()
+     removeBook()
+     updateBook()
+
+ELSE IF Login = Administrators
+show Administrators Options 
+     changeBorrowLimit()
+	 
+ELSE show "Login Failed" message
+
+END PROGRAM
