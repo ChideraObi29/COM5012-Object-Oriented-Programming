@@ -7,9 +7,9 @@ ON THE CODE
 - I added a function called memberInterface(). This function allows members to interact with the system options quickly than having more extra function that I have originally planned in my design.
 - I added the getBook() function to get the list of all objects in the class book.
 - Fixed spelling errors
-- Added a while loop for preventing the program to crash if it runs out of memory.
-- I added showBooks to print them books on the terminal.
-- I added more methods, (empty ones).
+- Added a while loop that in the function memberinterface that prevents the program to crash if it runs out of memory as the function is kept on calling.
+- I added showBooks function that ptints all the books in the list on the terminal.
+- I added more methods, (empty ones for now) that would be needed for the completion of the project.
 
 
 #include <iostream>
