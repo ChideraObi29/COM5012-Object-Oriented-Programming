@@ -1,0 +1,157 @@
+I managed to create a return book system by creating a list. For now both borrow and return work only for book1.
+
+#include <iostream>
+using namespace std;
+#include <list>
+
+// Books Class
+class Books {
+    public:
+    string title;
+    string author;
+    string status;
+
+    void getBook(string t, string a, string s){
+        title = t;
+        author = a;
+        status = s;
+    }
+
+    void showBook(){
+        cout <<"Book Title: "<< title << endl;
+        cout <<"Book Author: "<< author << endl;
+        cout <<"Book Status: "<< status << endl;
+        cout <<"--------------------" << endl;
+    }
+
+    void setStatus(string newStatus){
+        status = newStatus;
+    }
+};
+
+// User Class 
+class Users {
+    private: // Encapsulation
+    string name;
+    string password;
+
+    public:
+    void setLogin(string n, string p){
+        name = n;
+        password = p;
+    }
+
+    bool Login(string n, string p){
+        return (n == name && p == password);
+    }
+};
+
+// Inheritance Classes 
+class Members : public Users {
+    int borrowNumber = 0;
+     list<string> borrowedBooks;
+    public:
+    void borrowBook(Books &book1){
+        string bookTitle;
+        cout <<"" << endl; //Space bettween sentences
+        cout <<"Enter the book title: ";
+        cin >> bookTitle;
+
+        if (bookTitle == "Book1" && book1.status == "Available" && borrowNumber < 5){
+            book1.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book1."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+    }
+    void returnBook(Books &book1){
+        string returnBookTitle;
+        cout <<"Enter Book Title: ";
+        cin >> returnBookTitle;
+
+        if (returnBookTitle == "Book1"){
+            book1.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book1" << endl;
+            }
+    }
+    void reserveBook(){}
+    void viewMessages(){}
+    void viewBorrowBooks(){
+        cout << "Borrowed Books:" << endl;
+        for (string book : borrowedBooks){
+            cout << book << endl;
+        }
+    }
+    void memberInterface(Books book1, Books book2, Books book3, Books book4, Books book5, Books book6){
+        int optionNumber = 0;
+        while (optionNumber !=7){
+            cout <<"" << endl; //Space bettween senteces
+            cout <<"Library App Options" << endl;
+            cout <<"1. View Books" << endl;
+            cout <<"2. Borrow Book" << endl;
+            cout <<"3. Return Book" << endl;
+            cout <<"4. ReserveBook" << endl;
+            cout <<"5. View Messages" << endl;
+            cout <<"6. View Borrowed Books" << endl;
+            cout <<"7. Logout" << endl;
+            cout <<"" << endl;
+            cout <<"Select an option: ";
+            cin >> optionNumber;
+
+            if (optionNumber ==1){
+                book1.showBook();
+                book2.showBook();
+                book3.showBook();
+                book4.showBook();
+                book5.showBook();
+                book6.showBook();
+            }
+            else if (optionNumber ==2){
+                borrowBook(book1);
+            }
+            else if (optionNumber ==6){
+                viewBorrowBooks();
+            }
+            else if (optionNumber ==3){
+                returnBook(book1);
+            }
+        }        
+    }
+};
+
+int main(){
+// Users Objects 
+Members member1;
+member1.setLogin("Member","Pword1");
+
+// Books Objects List
+Books book1;
+book1.getBook("Book1","Book Author", "Available");
+Books book2;
+book2.getBook("Book2","Book Author", "Available");
+Books book3;
+book3.getBook("Book3","Book Author", "Available");
+Books book4;
+book4.getBook("Book4","Book Author", "Available");
+Books book5;
+book5.getBook("Book5","Book Author", "Available");
+Books book6;
+book6.getBook("Book6","Book Author", "Available");
+
+// Login Procedure
+string name, pass;
+cout << "Enter Your Account Name: ";
+cin >> name;
+
+cout << "Enter Your Password: ";
+cin >> pass;
+
+if (member1.Login(name, pass))
+    member1.memberInterface(book1, book2, book3, book4, book5, book6);
+
+else 
+cout << "Login Failed";
+}
