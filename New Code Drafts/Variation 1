@@ -1,4 +1,4 @@
-I rewrote the code from scratch and I am mainly focusing on the member should be able to do in the system.
+I rewrote the code from scratch, and I am mainly focusing on the member interaction to the system.
 
 #include <iostream>
 using namespace std;
