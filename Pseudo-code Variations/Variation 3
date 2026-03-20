@@ -1,0 +1,160 @@
+START CLASS "Users"
+    name: text
+    password: text
+
+    FUNCTION setLogin(n, p)
+        save n as name
+        save p as password
+    END FUNCTION
+
+    FUNCTION Login(n, p)
+        IF n = name AND p = password THEN
+            RETURN true
+        ELSE
+            RETURN false
+        END IF
+    END FUNCTION
+END CLASS
+
+START CLASS "Members"
+    FUNCTION viewBooks()
+        SHOW "Showing all books..."
+    END FUNCTION
+
+    FUNCTION borrowBook()
+        SHOW "Borrow Book Function Called"
+    END FUNCTION
+
+    FUNCTION returnBook()
+        SHOW "Return Book Function Called"
+    END FUNCTION
+
+    FUNCTION reserveBook()
+        SHOW "Reserve Book Function Called"
+    END FUNCTION
+
+    FUNCTION viewMessages()
+        SHOW "View Messages Function Called"
+    END FUNCTION
+
+    FUNCTION memberInterface()
+        option = 0
+        WHILE option != 5
+            SHOW "== Member Options =="
+            SHOW "1. View Books"
+            SHOW "2. Borrow Book"
+            SHOW "3. Return Book"
+            SHOW "4. Reserve Book"
+            SHOW "5. Exit"
+            ASK "Select an option:" -> option
+
+            IF option = 1 THEN CALL viewBooks()
+            IF option = 2 THEN CALL borrowBook()
+            IF option = 3 THEN CALL returnBook()
+            IF option = 4 THEN CALL reserveBook()
+        END WHILE
+    END FUNCTION
+END CLASS
+
+START CLASS "Librarians"
+    FUNCTION addBook()
+        SHOW "Add Book Function Called"
+    END FUNCTION
+
+    FUNCTION removeBook()
+        SHOW "Remove Book Function Called"
+    END FUNCTION
+
+    FUNCTION updateBook()
+        SHOW "Update Book Function Called"
+    END FUNCTION
+
+    FUNCTION librarianInterface()
+        option = 0
+        WHILE option != 4
+            SHOW "== Librarian Options =="
+            SHOW "1. Add Book"
+            SHOW "2. Remove Book"
+            SHOW "3. Update Book"
+            SHOW "4. Exit"
+            ASK "Select an option:" -> option
+
+            IF option = 1 THEN CALL addBook()
+            IF option = 2 THEN CALL removeBook()
+            IF option = 3 THEN CALL updateBook()
+        END WHILE
+    END FUNCTION
+END CLASS
+
+START CLASS "Administrators"
+    FUNCTION changeBorrowLimit()
+        SHOW "Change Borrow Limit Function Called"
+    END FUNCTION
+
+    FUNCTION adminInterface()
+        option = 0
+        WHILE option != 2
+            SHOW "== Administrator Options =="
+            SHOW "1. Change Borrow Limit"
+            SHOW "2. Exit"
+            ASK "Select an option:" -> option
+
+            IF option = 1 THEN CALL changeBorrowLimit()
+        END WHILE
+    END FUNCTION
+END CLASS
+
+START CLASS "Books"
+    save title
+    save id
+    save status
+
+    FUNCTION getBook(t, i, s)
+        save t as title
+        save i as id
+        save s as status
+    END FUNCTION
+
+    FUNCTION showBook()
+        SHOW "Book: " + title + ", ID: " + id + ", Status: " + status
+    END FUNCTION
+END CLASS
+
+// Create 6 books
+CREATE Book1 AS Books
+Book1.getBook("Book1", "B001", "Available")
+CREATE Book2 AS Books
+Book2.getBook("Book2", "B002", "Available")
+CREATE Book3 AS Books
+Book3.getBook("Book3", "B003", "Available")
+CREATE Book4 AS Books
+Book4.getBook("Book4", "B004", "Available")
+CREATE Book5 AS Books
+Book5.getBook("Book5", "B005", "Available")
+CREATE Book6 AS Books
+Book6.getBook("Book6", "B006", "Available")
+
+// Login Procedure
+ASK "Enter Username:" -> username
+ASK "Enter Password:" -> password
+
+CREATE member AS Members
+member.setLogin("member", "pword1")
+
+CREATE librarian AS Librarians
+librarian.setLogin("librarian", "pword2")
+
+CREATE admin AS Administrators
+admin.setLogin("admin", "pword3")
+
+IF member.Login(username, password) THEN
+    CALL member.memberInterface()
+ELSE IF librarian.Login(username, password) THEN
+    CALL librarian.librarianInterface()
+ELSE IF admin.Login(username, password) THEN
+    CALL admin.adminInterface()
+ELSE
+    SHOW "Login Failed"
+END IF
+
+END PROGRAM
