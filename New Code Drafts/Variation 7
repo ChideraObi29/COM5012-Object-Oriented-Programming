@@ -1,0 +1,551 @@
+I added a basic code that simulates the sending of notification to alert a member of overdue book. 
+
+#include <iostream>
+using namespace std;
+#include <list>
+#include <thread>
+#include <chrono>
+#include <string>
+
+// Books Class
+class Books {
+    public:
+    string title;
+    string author;
+    string status;
+
+    void getBook(string t, string a, string s){
+        title = t;
+        author = a;
+        status = s;
+    }
+    void showBook(){
+        cout <<"Book Title: "<< title << endl;
+        cout <<"Book Author: "<< author << endl;
+        cout <<"Book Status: "<< status << endl;
+        cout <<"--------------------" << endl;
+    }
+    void setStatus(string newStatus){
+        status = newStatus;
+    }
+
+    list<string> reserveList;
+};
+
+Books books[10];
+int count = 0;
+
+// User Class 
+class Users {
+    private: // Encapsulation
+    string name;
+    string password;
+
+    public:
+    void setLogin(string n, string p){
+        name = n;
+        password = p;
+    }
+    bool Login(string n, string p){
+        return (n == name && p == password);
+    }
+
+    string getName(){
+        return name;
+    }
+};
+
+// Inheritance Classes 
+class Members : public Users {
+ 
+    public:
+       int borrowNumber = 0;
+     list<string> borrowedBooks;
+     string overdueBooks;
+     bool isBookReturned;
+    public:
+    void borrowBook(Books &book1,Books &book2, Books &book3,Books &book4,Books &book5,Books &book6,Books &book7){
+        string bookTitle;
+        cout <<"Enter the book title: ";
+        cin >> bookTitle;
+
+        if (borrowNumber >= 5){
+        cout << "You have reached the maximum number of books (5)." << endl;
+        cout << "Return a book before borrowing another." << endl;
+        return;
+    }
+
+        if (bookTitle == "Book1" && book1.status == "Available" && borrowNumber < 5){
+            book1.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book1."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+         if (bookTitle == "Book2" && book2.status == "Available" && borrowNumber < 5){
+            book2.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book2."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+         if (bookTitle == "Book3" && book3.status == "Available" && borrowNumber < 5){
+            book3.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book3."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+         if (bookTitle == "Book4" && book4.status == "Available" && borrowNumber < 5){
+            book4.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book4."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+         if (bookTitle == "Book5" && book5.status == "Available" && borrowNumber < 5){
+            book5.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book5."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+         if (bookTitle == "Book6" && book6.status == "Available" && borrowNumber < 5){
+            book6.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book6."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+         if (bookTitle == "Book7" && book7.status == "Available" && borrowNumber < 5){
+            book7.setStatus("Borrowed");
+            borrowNumber++;
+            borrowedBooks.push_back(bookTitle);
+            cout <<"You have borrowed Book7."<< endl;
+            cout <<"You have 21 days to return it"<< endl;
+        }
+        else if (bookTitle == "Book7" && book7.status == "Borrowed" && borrowNumber < 5){
+            cout << "Unable to borrow this book." << endl;
+            cout << "Book7 is currently being borrowed by another user." << endl;
+        }
+    }
+    void returnBook(Books &book1, Books &book2, Books &book3, Books &book4, Books &book5, Books &book6, Books &book7){
+        string returnBookTitle;
+        cout <<"Enter Book Title: ";
+        cin >> returnBookTitle;
+
+        if (returnBookTitle == "Book1"){
+            book1.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book1" << endl;
+            }
+        if (returnBookTitle == "Book2"){
+            book2.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book2" << endl;
+            }
+            if (returnBookTitle == "Book3"){
+            book3.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book3" << endl;
+            }
+            if (returnBookTitle == "Book4"){
+            book4.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book4" << endl;
+            }
+            if (returnBookTitle == "Book5"){
+            book5.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book5" << endl;
+            }
+            if (returnBookTitle == "Book6"){
+            book6.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book6" << endl;
+            }
+              if (returnBookTitle == "Book7"){
+            book7.setStatus("Available");
+            borrowNumber--;
+            borrowedBooks.remove(returnBookTitle);
+            cout << "You have returned Book7" << endl;
+            }
+    }
+    void reserveBook(Books &book7){
+        string reserveTitle;
+        cout << "Enter book title to reserve: ";
+        cin >> reserveTitle;
+
+        if (reserveTitle == "Book7" && book7.status == "Borrowed"){
+            book7.setStatus("Reserved");
+            cout <<"Reservation request sent." << endl;
+        }
+        else 
+        cout << "You have no messages";
+        }
+
+    void viewBorrowBooks(){
+        cout << "Borrowed Books:" << endl;
+        for (string book : borrowedBooks){
+            cout << book << endl;
+        }
+    }
+
+    void viewMessage(Books &book7){
+        if (book7.status =="Reserved"){
+            cout << "Book7 is now available."<< endl;
+            cout << "You have 3 days to borrow it" << endl;
+            cout << "Borrow now? (yes/no): ";
+
+            string confirmation;
+            cin >> confirmation;
+
+            if (confirmation == "yes"){
+                book7.setStatus("Borrowed");
+                cout <<"You have borrowed Book7."<< endl;
+                cout <<"You have 21 days to return it"<< endl;
+                borrowNumber++;
+                borrowedBooks.push_back(book7.title);
+
+            }
+        }
+    }
+
+    void memberInterface(Books book1, Books book2, Books book3, Books book4, Books book5, Books book6, Books book7){
+        int optionNumber = 0;
+        while (optionNumber !=7){
+            cout <<"" << endl; //Space bettween senteces
+            cout <<"Library App Options" << endl;
+            cout <<"1. View Books" << endl;
+            cout <<"2. Borrow Book" << endl;
+            cout <<"3. Return Book" << endl;
+            cout <<"4. Reserve Book" << endl;
+            cout <<"5. View Messages" << endl;
+            cout <<"6. View Borrowed Books" << endl;
+            cout <<"7. Exit" << endl;
+            cout <<"" << endl;
+            cout <<"Select an option: ";
+            cin >> optionNumber;
+
+            if (optionNumber ==1){
+                cout <<"" << endl;
+                book1.showBook();
+                book2.showBook();
+                book3.showBook();
+                book4.showBook();
+                book5.showBook();
+                book6.showBook();
+                book7.showBook();
+            }
+            else if (optionNumber ==2){
+                borrowBook(book1, book2, book3, book4, book5, book6, book7);
+            }
+            else if (optionNumber ==6){
+                viewBorrowBooks();
+            }
+            else if (optionNumber ==3){
+                returnBook(book1, book2, book3, book4, book5, book6, book7);
+            }
+            else if (optionNumber == 4){
+                reserveBook(book7);
+            }
+            else if (optionNumber ==5 ){
+                viewMessage(book7);
+            }
+        }        
+    }
+};
+
+class Librarians : public Users{
+    public:
+    void addBook(){
+    if (count >= 10){
+        cout << "Library is full" << endl;
+        return;
+    }
+
+    string title, author, status;
+    cout << "Enter book title: ";
+    cin >> title;  
+    
+    cout << "Enter book author: ";
+    cin >> author;
+
+    cout << "Enter book status (Available or Borrowed): ";
+    cin >> status;
+
+    books[count].getBook(title, author, status);
+
+    count++;
+    cout << "The book was added." <<endl;
+
+
+};
+void removeBook(){
+    string title;
+    cout << "Enter a book title to remove: ";
+    cin >> title;
+
+    for (int i = 0; i < count; i++){
+        if (books[i].title == title){
+            for (int j = i; j < count - 1; j++){
+                books[j] = books[j + 1];
+            }
+            count--;
+            cout << "The book has been removed." <<endl;
+            return;
+        }
+    }
+    cout <<"Book not found." << endl;
+};
+void updateBook(){
+    string title;
+
+    cout <<"Enter book title to update: ";
+    cin >> title;
+
+    for (int i = 0; i < count; i++){
+        
+        if (books[i].title == title){
+
+            cout << "Enter new title: ";
+             cin >> books[i].title;
+
+            cout << "Enter new author: ";
+            cin >> books[i].author;
+
+            cout << "Enter new status: ";
+            cin >> books[i].status;
+
+            cout << "Book updated successfully." << endl;
+            return;
+        }
+    }
+};
+
+void showAddedBooks(){
+    for (int i = 0; i < count; i++){
+        cout << "Book Title: " << books[i].title << endl; 
+        cout << "Book Author: " << books[i].author << endl; 
+        cout << "Book Status: " << books[i].status << endl;
+        cout <<"--------------------" << endl;
+    }
+};
+
+ string alreadyReserved = "false";
+
+void allowReservation(Members &member2, Members &member3){
+    string applyReservation1;
+
+    if (alreadyReserved == "false"){
+    cout << "Member2 Requested Book7 for reservation" << endl;
+     alreadyReserved = "true";
+
+    for (int i = 0; i < count; i++){
+        if (books[i].title == "Book7"){
+
+            cout << "Book7 Status: " << books[i].status << endl;
+
+            cout << "Allow reservation? (yes or no): ";
+            cin >> applyReservation1;
+
+            if (applyReservation1 == "yes" && books[i].status == "Borrowed"){
+                books[i].reserveList.push_back("Member2");
+                cout << "Reservation added to list." << endl;
+            } 
+            else {
+                cout << "Reservation denied." << endl;
+            }
+
+            break;
+        }
+    }
+}
+};
+
+void allowBorrow(Members &member2, Members &member3){
+    string approval;
+    if (member2.borrowNumber == 3){
+    cout << "Member2 Requested Book1 for borrowing" << endl;
+    cout << "Total books borrowed: " << member2.borrowNumber << endl;
+    cout << "Approve? (yes or no): ";
+    cin >> approval;
+
+    if (member2.borrowNumber != 5 && approval == "yes") {
+     
+        for (int i = 0; i < count; i++) {
+            if (books[i].title == "Book1") {
+                books[i].setStatus("Borrowed");  
+                member2.borrowNumber++;          
+                member2.borrowedBooks.push_back("Book1"); 
+                cout << "Book1 is now borrowed.\n";
+                break;
+            }
+        }
+    } 
+    else {
+        cout << "Borrowing denied" << endl;
+    }
+}
+
+  if (member3.borrowNumber == 5){
+    cout << "" << endl;
+    cout << "Member3 Requested Book2 for borrowing" << endl;
+    cout << "Total books borrowed: " << member3.borrowNumber << endl;
+    cout << "Approve? (yes or no): ";
+    cin >> approval;
+
+    if (member3.borrowNumber != 5 && approval == "yes") {
+     
+        for (int i = 0; i < count; i++) {
+            if (books[i].title == "Book2") {
+                books[i].setStatus("Borrowed");  
+                member3.borrowNumber++;          
+                member3.borrowedBooks.push_back("Book2"); 
+                cout << "Book2 is now borrowed.\n";
+                break;
+            }
+        }
+    } 
+    
+    else if (member3.borrowNumber == 5 && approval == "yes"){
+        cout << "Borrowing denied." << endl;
+        cout <<"Member3 has reached the maximun borrow limit." << endl;
+    }
+    else {
+        cout << "Borrowing denied." << endl;
+    }
+}
+
+};
+void addReports(Members &member2){
+    string message;
+     int reportOption = 0;
+    cout << "Select report type" << endl;
+    cout << "1. Overdue Books"  << endl;
+    cin >> reportOption;
+
+     cin.ignore();
+
+    if (reportOption ==1 && member2.isBookReturned == false){
+        cout << "Username: Member2" << endl;
+        cout << "Books borrowed: " << member2.overdueBooks << "(Overdue)" << endl;
+        cout << "Enter notification message" << endl;
+        getline(cin, message);
+        cout << "Message sent: " << message << endl;
+    }
+};
+
+void librarianInterface(Members &member2, Members &member3){
+    int optionNumber = 0;
+
+    while (optionNumber !=9){
+        cout <<"" << endl; //Space bettween senteces       
+        cout <<"Library App Options" << endl;  
+        cout <<"1. View Books" << endl;  
+        cout <<"2. Add Book" << endl;  
+        cout <<"3. Remove Book" << endl;  
+        cout <<"4. Update Book" << endl;   
+        cout <<"6. View Borrow Requests" << endl;   
+        cout <<"7. View Reservation Requests" << endl;   
+        cout <<"8. Add reports" << endl;    
+        cout <<"9. Exit" << endl;
+        cout <<"Select an option: ";
+        cin >> optionNumber;
+
+        if (optionNumber == 1){
+            cout <<"" << endl;
+                showAddedBooks();
+        }
+        else if (optionNumber == 2){
+            addBook();
+        }
+        else if (optionNumber == 3){
+            removeBook();
+        }
+        else if (optionNumber == 4){
+            updateBook();
+        }
+        else if(optionNumber == 6){
+            allowBorrow(member2, member3);
+        }
+        else if (optionNumber == 7){
+            allowReservation(member2, member3);
+        }
+        else if (optionNumber == 8){
+            addReports(member2);
+        }
+    }
+};
+
+};
+
+int main(){
+
+// Users Objects 
+Members member1;
+member1.setLogin("Member","Pword1");
+
+Members member2;
+member2.borrowNumber = 3;
+member2.overdueBooks = "Book5";
+member2.isBookReturned = false;
+
+Members member3;
+member3.borrowNumber = 5;
+
+Librarians librarian1;
+librarian1.setLogin("Librarian","Pword2");
+
+// Books Objects List
+Books book1;
+book1.getBook("Book1","Book Author", "Available");
+Books book2;
+book2.getBook("Book2","Book Author", "Available");
+Books book3;
+book3.getBook("Book3","Book Author", "Available");
+Books book4;
+book4.getBook("Book4","Book Author", "Available");
+Books book5;
+book5.getBook("Book5","Book Author", "Borrowed");
+Books book6;
+book6.getBook("Book6","Book Author", "Available");
+Books book7;
+book7.getBook("Book7","Book Author", "Borrowed");
+
+books[0].getBook("Book1","Book Author", "Available");
+books[1].getBook("Book2","Book Author", "Available");
+books[2].getBook("Book3","Book Author", "Available");
+books[3].getBook("Book4","Book Author", "Available");
+books[4].getBook("Book5","Book Author", "Available");
+books[5].getBook("Book6","Book Author", "Available");
+books[6].getBook("Book7","Book Author", "Borrowed");
+
+count =7;
+
+// Login Procedure
+string name, pass;
+cout << "Enter Your Account Name: ";
+cin >> name;
+
+cout << "Enter Your Password: ";
+cin >> pass;
+
+if (member1.Login(name, pass)){
+    member1.memberInterface(book1, book2, book3, book4, book5, book6, book7);
+}
+
+
+else if (librarian1.Login(name, pass)){
+librarian1.librarianInterface(member2, member3);
+}
+else{ 
+cout << "Login Failed";
+}
+}
